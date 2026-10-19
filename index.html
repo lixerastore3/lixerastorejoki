@@ -3,512 +3,262 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LIXERA STORE</title>
 <style>
-:root {
-  --blue:#168cff;
-  --cyan:#00d9ff;
-  --bg:#050914;
-  --panel:#0c1425;
-  --line:#18365b;
-  --text:#f2f7ff;
-  --muted:#91a5c2;
-}
+:root{--blue:#168cff;--cyan:#00d9ff;--bg:#050914;--panel:#0c1425;--line:#203653;--text:#f2f7ff;--muted:#91a5c2}
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Arial,sans-serif;
-}
-header{
-  padding:28px 16px;text-align:center;
-  background:radial-gradient(ellipse at top,#123c76,#050914 75%);
-  border-bottom:1px solid var(--line);
-}
-.logo{font-size:30px;font-weight:900;letter-spacing:2px}
-.logo span{color:var(--cyan)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{text-align:center;padding:28px 15px;background:radial-gradient(ellipse at top,#123c76,#050914 75%);border-bottom:1px solid var(--line)}
+.logo{font-size:30px;font-weight:900;letter-spacing:2px}.logo span{color:var(--cyan)}
 header p{color:var(--muted);margin-bottom:0}
-main{max-width:850px;margin:auto;padding:18px}
-h2{font-size:20px}
-h3{margin-top:0}
-.panel{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:17px;margin-bottom:17px;
-}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{
-  border:0;border-radius:10px;padding:13px;
-  font-weight:bold;cursor:pointer;
-}
+main{max-width:850px;margin:auto;padding:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:17px}
+h2{font-size:20px;margin-top:0}
+button{border:0;border-radius:10px;padding:13px;font-weight:bold;cursor:pointer}
+.primary,.tab.active{background:linear-gradient(100deg,#0879ff,#00c9ff);color:white}
 .tab{background:#121f35;color:white;border:1px solid var(--line)}
-.tab.active,.primary{background:linear-gradient(100deg,#0879ff,#00c9ff);color:white}
-label{display:block;font-size:13px;color:#b8cbe4;margin:13px 0 6px}
-input,select,textarea{
-  width:100%;padding:12px;border-radius:9px;
-  background:#070d19;border:1px solid #263e5e;
-  color:white;font-size:15px;outline:none;
-}
-input:focus,select:focus,textarea:focus{border-color:var(--cyan)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.price-list{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.price-item{
-  background:#080f1d;border:1px solid var(--line);
-  padding:12px;border-radius:10px;font-size:14px;
-}
-.price-item b{display:block;color:var(--cyan);margin-top:5px}
-.total{
-  padding:15px;border:1px solid #0879ff;border-radius:12px;
-  background:#071a32;margin-top:15px;
-}
-.total small{color:#9bb5d7}
-.total strong{display:block;font-size:25px;color:var(--cyan);margin-top:6px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid,.prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.price{background:#080f1d;border:1px solid var(--line);padding:12px;border-radius:10px;font-size:14px}
+.price b{display:block;color:var(--cyan);margin-top:6px}
+label{display:block;color:#b8cbe4;font-size:13px;margin:13px 0 6px}
+input,select,textarea{width:100%;padding:13px;border-radius:10px;background:#070d19;border:1px solid #263e5e;color:white;font-size:15px}
 .note{font-size:12px;color:var(--muted);line-height:1.6}
 .hidden{display:none!important}
-.qris{width:100%;max-width:310px;display:block;margin:12px auto;border-radius:12px;background:white}
-.pay-option{display:flex;gap:9px;align-items:center}
-.pay-option input{width:auto}
-button.primary{width:100%;margin-top:15px;font-size:15px}
+.total{padding:16px;border:1px solid #0879ff;border-radius:13px;background:#071a32;margin-top:15px}
+.total strong{display:block;font-size:26px;color:var(--cyan);margin:7px 0}
+#rincian{white-space:pre-line}
+.primary.full{width:100%;margin-top:15px}
+.qris{width:100%;max-width:310px;display:block;margin:15px auto;background:white;border-radius:12px}
 footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
-@media(max-width:480px){
-  main{padding:12px}
-  .grid,.price-list{grid-template-columns:1fr 1fr}
-  .logo{font-size:26px}
-}
+@media(max-width:480px){main{padding:12px}.logo{font-size:26px}}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">LIXERA <span>STORE</span></div>
   <p>Kebutuhan Digital Sehari-hari</p>
-  <p>Joki Game • Top Up • Produk Digital</p>
+  <p>Joki Game • Top Up Game • Produk Digital</p>
 </header>
 
 <main>
-  <section class="panel">
-    <h2>01. Pilih Layanan</h2>
-    <div class="tabs">
-      <button class="tab active" id="tabGendong" onclick="pilihLayanan('gendong')">JOKI GENDONG</button>
-      <button class="tab" id="tabRank" onclick="pilihLayanan('rank')">JOKI RANK</button>
-    </div>
-  </section>
+<section class="panel">
+<h2>01. Pilih Layanan</h2>
+<div class="tabs">
+<button id="tabG" class="tab active" onclick="pilih('gendong')">JOKI GENDONG</button>
+<button id="tabR" class="tab" onclick="pilih('rank')">JOKI RANK</button>
+</div>
+</section>
 
-  <section class="panel">
-    <h2>02. Daftar Harga</h2>
+<section class="panel">
+<h2>02. Daftar Harga</h2>
+<div id="hargaG" class="prices"></div>
+<div id="hargaR" class="prices hidden"></div>
+<div id="grading" class="price hidden" style="margin-top:10px">MYTHIC GRADING<b>Rp235.000</b></div>
+<p class="note">Pastikan harga dan detail pesanan sesuai sebelum melakukan pembayaran.</p>
+</section>
 
-    <div id="hargaGendong" class="price-list"></div>
+<section class="panel">
+<h2>03. Kalkulator Harga</h2>
+<div id="formG">
+<label>Rank saat ini</label>
+<select id="rankG" onchange="hitung()">
+<option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
+</select>
+<label>Jumlah bintang yang dipesan</label>
+<input id="starG" type="number" min="1" value="1" oninput="hitung()">
+</div>
 
-    <div id="hargaRank" class="price-list hidden"></div>
+<div id="formR" class="hidden">
+<div class="grid">
+<div><label>Rank awal</label>
+<select id="awal" onchange="hitung()">
+<option>Grandmaster</option><option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
+</select></div>
+<div><label>Rank tujuan</label>
+<select id="tujuan" onchange="hitung()">
+<option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
+</select></div>
+</div>
+<div class="grid">
+<div><label>Bintang rank awal</label><input id="starAwal" type="number" min="0" value="0" oninput="hitung()"></div>
+<div><label>Bintang rank tujuan</label><input id="starTujuan" type="number" min="1" value="1" oninput="hitung()"></div>
+</div>
+<label>Tambahan (opsional)</label>
+<select id="tambahan" onchange="hitung()">
+<option value="0">Tanpa tambahan</option>
+<option value="235000">Mythic Grading (+Rp235.000)</option>
+</select>
+<p class="note">Epic, Legend, Mythic, Honor: maksimal 25 bintang per tier. Glory: 50 bintang per tier. Immortal tidak memiliki batas tetap. Harga setiap tier ditambahkan sesuai bintang yang perlu ditempuh.</p>
+</div>
 
-    <div id="gradingBox" class="hidden">
-      <div class="price-item" style="margin-top:10px">
-        MYTHIC GRADING
-        <b>Rp235.000</b>
-      </div>
-    </div>
+<div class="total">
+<small>Estimasi total harga</small>
+<strong id="total">Rp0</strong>
+<div id="rincian" class="note"></div>
+</div>
+</section>
 
-    <p class="note">Harga dapat berubah mengikuti ketentuan LIXERA STORE. Pastikan total sudah sesuai sebelum melakukan pembayaran.</p>
-  </section>
+<section class="panel">
+<h2>04. Data Pemesan</h2>
+<label>Nickname game</label><input id="nickname" placeholder="Nickname">
+<div class="grid">
+<div><label>User ID</label><input id="uid" placeholder="User ID" inputmode="numeric"></div>
+<div><label>Server ID</label><input id="sid" placeholder="Server ID" inputmode="numeric"></div>
+</div>
+<label>WhatsApp pemesan (opsional)</label><input id="wa" placeholder="08xxxxxxxxxx" inputmode="tel">
+<label>Catatan tambahan (opsional)</label><textarea id="catatan" rows="3" placeholder="Catatan pesanan"></textarea>
+<p class="note">Jangan kirim password atau kode OTP akun.</p>
+</section>
 
-  <section class="panel" id="kalkulator">
-    <h2>03. Kalkulator Harga</h2>
-
-    <div id="formGendong">
-      <label>Rank saat ini</label>
-      <select id="gendongRank" onchange="hitung()">
-        <option value="Epic">Epic</option>
-        <option value="Legend">Legend</option>
-        <option value="Mythic">Mythic</option>
-        <option value="Honor">Honor</option>
-        <option value="Glory">Glory</option>
-        <option value="Immortal">Immortal</option>
-      </select>
-
-      <label>Jumlah bintang yang ingin dipesan</label>
-      <input type="number" id="gendongStars" min="1" value="1" oninput="hitung()">
-      <p class="note">Joki Gendong dihitung berdasarkan jumlah bintang dan harga rank yang dipilih.</p>
-    </div>
-
-    <div id="formRank" class="hidden">
-      <div class="grid">
-        <div>
-          <label>Rank awal</label>
-          <select id="rankAwal" onchange="hitung()">
-            <option>Grandmaster</option>
-            <option>Epic</option>
-            <option>Legend</option>
-            <option>Mythic</option>
-            <option>Honor</option>
-            <option>Glory</option>
-            <option>Immortal</option>
-          </select>
-        </div>
-        <div>
-          <label>Rank tujuan</label>
-          <select id="rankTujuan" onchange="hitung()">
-            <option>Epic</option>
-            <option>Legend</option>
-            <option>Mythic</option>
-            <option>Honor</option>
-            <option>Glory</option>
-            <option>Immortal</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div>
-          <label>Bintang rank awal</label>
-          <input type="number" id="bintangAwal" min="0" value="0" oninput="hitung()">
-        </div>
-        <div>
-          <label>Bintang rank tujuan</label>
-          <input type="number" id="bintangTujuan" min="1" value="1" oninput="hitung()">
-        </div>
-      </div>
-
-      <label>Tambahan (opsional)</label>
-      <select id="tambahanRank" onchange="hitung()">
-        <option value="0">Tanpa tambahan</option>
-        <option value="235000">Mythic Grading (+Rp235.000)</option>
-      </select>
-
-      <p class="note">
-        Epic, Legend, Mythic, dan Honor dihitung 25 bintang per tier.
-        Glory dihitung 50 bintang per tier.
-        Immortal tidak memiliki batas tetap; jumlah bintang tujuan dimasukkan manual.
-        Grandmaster menggunakan asumsi 25 bintang per tier dan bisa diubah di kode.
-      </p>
-    </div>
-
-    <div class="total">
-      <small>Estimasi total harga</small>
-      <strong id="totalHarga">Rp0</strong>
-      <div id="rincian" class="note" style="margin-top:8px"></div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>04. Data Pemesan</h2>
-    <label>Nickname dalam game</label>
-    <input id="nickname" placeholder="Masukkan nickname">
-
-    <div class="grid">
-      <div>
-        <label>User ID</label>
-        <input id="userId" inputmode="numeric" placeholder="User ID">
-      </div>
-      <div>
-        <label>Server ID</label>
-        <input id="serverId" inputmode="numeric" placeholder="Server ID">
-      </div>
-    </div>
-
-    <label>Nomor WhatsApp pemesan (opsional)</label>
-    <input id="waPembeli" inputmode="tel" placeholder="08xxxxxxxxxx">
-
-    <label>Catatan tambahan (opsional)</label>
-    <textarea id="catatan" rows="3" placeholder="Catatan pesanan..."></textarea>
-
-    <p class="note">Jangan kirim password, kode OTP, atau informasi login akun.</p>
-  </section>
-
-  <section class="panel">
-    <h2>05. Pilih Pembayaran</h2>
-    <div class="pay-option">
-      <input type="radio" name="pembayaran" id="payQRIS" value="QRIS" checked onchange="ubahPembayaran()">
-      <label for="payQRIS" style="margin:0">QRIS</label>
-    </div>
-    <div class="pay-option" style="margin-top:12px">
-      <input type="radio" name="pembayaran" id="payDANA" value="DANA" onchange="ubahPembayaran()">
-      <label for="payDANA" style="margin:0">DANA</label>
-    </div>
-    <div class="pay-option" style="margin-top:12px">
-      <input type="radio" name="pembayaran" id="payGOPAY" value="GoPay" onchange="ubahPembayaran()">
-      <label for="payGOPAY" style="margin:0">GoPay</label>
-    </div>
-
-    <div id="infoQRIS">
-      <img class="qris" src="IMG-20261010-WA0017.jpg" alt="QRIS LIXERA STORE">
-      <p class="note" style="text-align:center">Scan QRIS menggunakan aplikasi pembayaran yang mendukung QRIS.</p>
-    </div>
-
-    <div id="infoEwallet" class="hidden">
-      <div class="total">
-        <small>Nomor pembayaran</small>
-        <strong style="font-size:22px">083165700636</strong>
-        <p>Nama penerima: <b>YAXXX</b></p>
-        <button class="primary" onclick="salinNomor()">SALIN NOMOR</button>
-      </div>
-    </div>
-
-    <p class="note">Pembayaran diverifikasi admin secara manual. Periksa nama penerima dan nominal sebelum transfer.</p>
-    <button class="primary" onclick="checkout()">KONFIRMASI PESANAN VIA WHATSAPP</button>
-  </section>
+<section class="panel">
+<h2>05. Pembayaran</h2>
+<label>Metode pembayaran</label>
+<select id="metode" onchange="ubahBayar()">
+<option>QRIS</option><option>DANA</option><option>GoPay</option>
+</select>
+<div id="qrisBox">
+<img class="qris" src="IMG-20261010-WA0017.jpg" alt="QRIS LIXERA STORE">
+<p class="note">Scan QRIS melalui aplikasi pembayaran yang mendukung QRIS.</p>
+</div>
+<div id="ewallet" class="hidden total">
+<small>Nomor pembayaran</small><strong style="font-size:23px">083165700636</strong>
+<p>Nama penerima: <b>YAXXX</b></p>
+<button class="primary" onclick="salin()">SALIN NOMOR</button>
+</div>
+<p class="note">Pembayaran diperiksa admin secara manual. Pastikan nominal dan nama penerima benar.</p>
+<button class="primary full" onclick="checkout()">KONFIRMASI PESANAN VIA WHATSAPP</button>
+</section>
 </main>
-
-<footer>
-  © LIXERA STORE • Kebutuhan Digital Sehari-hari
-</footer>
+<footer>© LIXERA STORE • Kebutuhan Digital Sehari-hari</footer>
 
 <script>
-const ADMIN_WA = "573123253419";
+const ADMIN_WA="573123253419";
 
-/* HARGA PER BINTANG */
-const hargaGendongData = {
-  Epic: 3000,
-  Legend: 5000,
-  Mythic: 7000,
-  Honor: 10000,
-  Glory: 15000,
-  Immortal: 20000
-};
+const hargaG={Epic:3000,Legend:5000,Mythic:7000,Honor:10000,Glory:15000,Immortal:20000};
+const hargaR={Grandmaster:3000,Epic:5000,Legend:7000,Mythic:18000,Honor:20000,Glory:28000,Immortal:30000};
+const batas={Grandmaster:25,Epic:25,Legend:25,Mythic:25,Honor:25,Glory:50,Immortal:null};
+const urutan=["Grandmaster","Epic","Legend","Mythic","Honor","Glory","Immortal"];
+let layanan="gendong";
 
-const hargaRankData = {
-  Grandmaster: 3000,
-  Epic: 5000,
-  Legend: 7000,
-  Mythic: 18000,
-  Honor: 20000,
-  Glory: 28000,
-  Immortal: 30000
-};
+function rp(n){return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n)}
 
-/*
-  KAPASITAS TIAP TIER
-  Ubah angka di sini kalau ketentuan bintang berubah.
-  Immortal tidak menggunakan batas tetap.
-*/
-const kapasitas = {
-  Grandmaster: 25,
-  Epic: 25,
-  Legend: 25,
-  Mythic: 25,
-  Honor: 25,
-  Glory: 50,
-  Immortal: null
-};
+function isiHarga(id,data){
+ document.getElementById(id).innerHTML=Object.entries(data).map(([r,h])=>
+ `<div class="price">${r}<b>${rp(h)}/bintang</b></div>`).join("");
+}
+isiHarga("hargaG",hargaG);isiHarga("hargaR",hargaR);
 
-const urutanRank = [
-  "Grandmaster", "Epic", "Legend",
-  "Mythic", "Honor", "Glory", "Immortal"
-];
-
-let layanan = "gendong";
-
-function rupiah(angka) {
-  return new Intl.NumberFormat("id-ID", {
-    style:"currency", currency:"IDR",
-    maximumFractionDigits:0
-  }).format(angka);
+function pilih(jenis){
+ layanan=jenis;
+ document.getElementById("tabG").classList.toggle("active",jenis==="gendong");
+ document.getElementById("tabR").classList.toggle("active",jenis==="rank");
+ document.getElementById("hargaG").classList.toggle("hidden",jenis!=="gendong");
+ document.getElementById("hargaR").classList.toggle("hidden",jenis!=="rank");
+ document.getElementById("grading").classList.toggle("hidden",jenis!=="rank");
+ document.getElementById("formG").classList.toggle("hidden",jenis!=="gendong");
+ document.getElementById("formR").classList.toggle("hidden",jenis!=="rank");
+ hitung();
 }
 
-function buatDaftarHarga(elementId, data) {
-  const el = document.getElementById(elementId);
-  el.innerHTML = "";
-  Object.entries(data).forEach(([rank, harga]) => {
-    el.innerHTML += `
-      <div class="price-item">
-        ${rank}
-        <b>${rupiah(harga)}/bintang</b>
-      </div>`;
-  });
+function hitungRank(){
+ const a=awal.value,t=tujuan.value;
+ const sa=Number(starAwal.value),st=Number(starTujuan.value);
+ const ia=urutan.indexOf(a),it=urutan.indexOf(t);
+ const extra=Number(tambahan.value);
+
+ if(ia<0||it<ia||sa<0||st<1||!Number.isInteger(sa)||!Number.isInteger(st))
+ return {total:0,rincian:"Periksa rank dan jumlah bintang."};
+
+ let total=0,detail=[];
+ function tambah(rank,jumlah){
+   if(jumlah<=0)return;
+   const biaya=jumlah*hargaR[rank];
+   total+=biaya;
+   detail.push(`${rank}: ${jumlah} bintang = ${rp(biaya)}`);
+ }
+
+ if(ia===it){
+   if(st<=sa)return {total:0,rincian:"Bintang tujuan harus lebih tinggi dari bintang awal."};
+   tambah(a,st-sa);
+ }else{
+   if(batas[a]===null)return {total:0,rincian:"Rank awal Immortal tidak bisa dihitung otomatis."};
+   if(sa>=batas[a])return {total:0,rincian:"Bintang awal harus lebih kecil dari batas tier."};
+
+   // Tambahkan hanya sisa bintang pada tier awal.
+   tambah(a,batas[a]-sa);
+
+   // Tambahkan biaya setiap tier yang dilewati.
+   for(let i=ia+1;i<it;i++){
+     const r=urutan[i];
+     if(batas[r]===null)return {total:0,rincian:"Immortal tidak bisa menjadi tier perantara karena tidak memiliki batas tetap."};
+     tambah(r,batas[r]);
+   }
+
+   // Tujuan tier biasa dihitung sesuai bintang tujuan yang dimasukkan.
+   // Immortal juga dihitung berdasarkan bintang tujuan yang dimasukkan.
+   tambah(t,st);
+ }
+
+ if(extra>0){total+=extra;detail.push("Mythic Grading: "+rp(extra));}
+ return {total,rincian:detail.join("\n")};
 }
 
-buatDaftarHarga("hargaGendong", hargaGendongData);
-buatDaftarHarga("hargaRank", hargaRankData);
-
-function pilihLayanan(jenis) {
-  layanan = jenis;
-  document.getElementById("tabGendong").classList.toggle("active", jenis === "gendong");
-  document.getElementById("tabRank").classList.toggle("active", jenis === "rank");
-  document.getElementById("hargaGendong").classList.toggle("hidden", jenis !== "gendong");
-  document.getElementById("hargaRank").classList.toggle("hidden", jenis !== "rank");
-  document.getElementById("gradingBox").classList.toggle("hidden", jenis !== "rank");
-  document.getElementById("formGendong").classList.toggle("hidden", jenis !== "gendong");
-  document.getElementById("formRank").classList.toggle("hidden", jenis !== "rank");
-  hitung();
+function hitung(){
+ let total=0,rincian="";
+ if(layanan==="gendong"){
+   const r=rankG.value,n=Number(starG.value);
+   if(!Number.isInteger(n)||n<1){rincian="Masukkan minimal 1 bintang.";}
+   else{total=n*hargaG[r];rincian=`${r}: ${n} bintang = ${rp(total)}`;}
+ }else{
+   const h=hitungRank();total=h.total;rincian=h.rincian;
+ }
+ document.getElementById("total").textContent=rp(total);
+ document.getElementById("rincian").textContent=rincian;
 }
 
-function hitungRank() {
-  const awal = document.getElementById("rankAwal").value;
-  const tujuan = document.getElementById("rankTujuan").value;
-  const bintangAwal = Number(document.getElementById("bintangAwal").value);
-  const bintangTujuan = Number(document.getElementById("bintangTujuan").value);
-  const tambahan = Number(document.getElementById("tambahanRank").value);
-
-  const indexAwal = urutanRank.indexOf(awal);
-  const indexTujuan = urutanRank.indexOf(tujuan);
-
-  if (indexTujuan < indexAwal ||
-      (indexTujuan === indexAwal && bintangTujuan <= bintangAwal)) {
-    return {total:0, rincian:"Rank tujuan atau jumlah bintang belum valid."};
-  }
-
-  if (bintangAwal < 0 || bintangTujuan < 1) {
-    return {total:0, rincian:"Masukkan jumlah bintang yang valid."};
-  }
-
-  let total = 0;
-  let detail = [];
-
-  // Jika masih dalam rank yang sama, hitung selisih bintangnya saja.
-  if (indexAwal === indexTujuan) {
-    const jumlah = bintangTujuan - bintangAwal;
-    total += jumlah * hargaRankData[awal];
-    detail.push(`${awal}: ${jumlah} × ${rupiah(hargaRankData[awal])} = ${rupiah(total)}`);
-  } else {
-    // Sisa bintang pada rank awal.
-    const capAwal = kapasitas[awal];
-    if (capAwal === null) {
-      return {total:0, rincian:"Rank awal Immortal tidak memiliki batas tetap. Periksa input bintang."};
-    }
-    if (bintangAwal > capAwal) {
-      return {total:0, rincian:`Bintang awal maksimal ${capAwal} untuk ${awal}.`};
-    }
-
-    const sisaAwal = capAwal - bintangAwal;
-    if (sisaAwal > 0) {
-      const biaya = sisaAwal * hargaRankData[awal];
-      total += biaya;
-      detail.push(`${awal}: ${sisaAwal} × ${rupiah(hargaRankData[awal])} = ${rupiah(biaya)}`);
-    }
-
-    // Hitung setiap tier perantara dengan kapasitas dan harga tier masing-masing.
-    for (let i = indexAwal + 1; i < indexTujuan; i++) {
-      const rank = urutanRank[i];
-      const cap = kapasitas[rank];
-
-      if (cap === null) {
-        return {total:0, rincian:"Immortal tidak dapat dihitung sebagai tier perantara karena tidak memiliki batas tetap."};
-      }
-
-      const biaya = cap * hargaRankData[rank];
-      total += biaya;
-      detail.push(`${rank}: ${cap} × ${rupiah(hargaRankData[rank])} = ${rupiah(biaya)}`);
-    }
-
-    // Rank tujuan dihitung berdasarkan bintang yang dimasukkan, bukan kapasitas penuh.
-    const biayaTujuan = bintangTujuan * hargaRankData[tujuan];
-    total += biayaTujuan;
-    detail.push(`${tujuan}: ${bintangTujuan} × ${rupiah(hargaRankData[tujuan])} = ${rupiah(biayaTujuan)}`);
-  }
-
-  if (tujuan === "Immortal" && indexTujuan > indexAwal) {
-    detail.push("Immortal dihitung berdasarkan jumlah bintang tujuan yang dimasukkan.");
-  }
-
-  if (tambahan > 0) {
-    total += tambahan;
-    detail.push(`Mythic Grading: ${rupiah(tambahan)}`);
-  }
-
-  return {total, rincian:detail.join("\n")};
+function ubahBayar(){
+ const m=metode.value;
+ document.getElementById("qrisBox").classList.toggle("hidden",m!=="QRIS");
+ document.getElementById("ewallet").classList.toggle("hidden",m==="QRIS");
 }
-
-function hitung() {
-  let total = 0;
-  let rincian = "";
-
-  if (layanan === "gendong") {
-    const rank = document.getElementById("gendongRank").value;
-    const bintang = Number(document.getElementById("gendongStars").value);
-
-    if (!Number.isInteger(bintang) || bintang < 1) {
-      total = 0;
-      rincian = "Masukkan jumlah bintang minimal 1.";
-    } else {
-      total = bintang * hargaGendongData[rank];
-      rincian = `${rank}: ${bintang} × ${rupiah(hargaGendongData[rank])}`;
-    }
-  } else {
-    const hasil = hitungRank();
-    total = hasil.total;
-    rincian = hasil.rincian;
-  }
-
-  document.getElementById("totalHarga").textContent = rupiah(total);
-  document.getElementById("rincian").style.whiteSpace = "pre-line";
-  document.getElementById("rincian").textContent = rincian;
+function salin(){
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText("083165700636").then(()=>alert("Nomor disalin."));
+ }else alert("Nomor pembayaran: 083165700636");
 }
+function checkout(){
+ hitung();
+ const nama=nickname.value.trim(),u=uid.value.trim(),s=sid.value.trim();
+ const waPembeli=wa.value.trim(),cat=catatan.value.trim();
+ const h=layanan==="rank"?hitungRank():null;
+ if(!nama||!u||!s){alert("Isi nickname, User ID, dan Server ID.");return;}
+ if(Number(document.getElementById("total").textContent.replace(/\D/g,""))===0||
+    (h&&h.rincian.startsWith("Periksa"))||
+    (h&&h.rincian.startsWith("Bintang"))||
+    (h&&h.rincian.startsWith("Rank awal"))||
+    (h&&h.rincian.startsWith("Immortal tidak"))){
+  alert("Periksa kembali rank dan bintang pesanan.");return;
+ }
 
-function ubahPembayaran() {
-  const metode = document.querySelector('input[name="pembayaran"]:checked').value;
-  document.getElementById("infoQRIS").classList.toggle("hidden", metode !== "QRIS");
-  document.getElementById("infoEwallet").classList.toggle("hidden", metode === "QRIS");
+ let layananText;
+ if(layanan==="gendong"){
+  layananText=`Joki Gendong\nRank: ${rankG.value}\nJumlah bintang: ${starG.value}`;
+ }else{
+  layananText=`Joki Rank\nRank awal: ${awal.value} (${starAwal.value} bintang)\nRank tujuan: ${tujuan.value} (${starTujuan.value} bintang)\nTambahan: ${tambahan.value==="0"?"Tidak ada":"Mythic Grading"}`;
+ }
+ const pesan=
+ `Halo Admin LIXERA STORE, saya mau pesan.\n\n${layananText}\n\n`+
+ `Nickname: ${nama}\nUser ID: ${u}\nServer ID: ${s}\n`+
+ (waPembeli?`WhatsApp: ${waPembeli}\n`:"")+
+ `Pembayaran: ${metode.value}\nTotal estimasi: ${total.textContent}\n`+
+ `Rincian:\n${document.getElementById("rincian").textContent}\n`+
+ `Catatan: ${cat||"-"}\n\nMohon konfirmasi pesanan saya.`;
+ window.open("https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent(pesan),"_blank");
 }
-
-function salinNomor() {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText("083165700636")
-      .then(() => alert("Nomor pembayaran disalin."));
-  } else {
-    alert("Nomor pembayaran: 083165700636");
-  }
-}
-
-function checkout() {
-  hitung();
-
-  const nickname = document.getElementById("nickname").value.trim();
-  const userId = document.getElementById("userId").value.trim();
-  const serverId = document.getElementById("serverId").value.trim();
-  const waPembeli = document.getElementById("waPembeli").value.trim();
-  const catatan = document.getElementById("catatan").value.trim();
-  const metode = document.querySelector('input[name="pembayaran"]:checked').value;
-  const totalText = document.getElementById("totalHarga").textContent;
-  const rincian = document.getElementById("rincian").textContent;
-
-  if (!nickname || !userId || !serverId) {
-    alert("Isi nickname, User ID, dan Server ID terlebih dahulu.");
-    return;
-  }
-
-  if (totalText === rupiah(0) || rincian.includes("belum valid") ||
-      rincian.includes("Masukkan") || rincian.includes("maksimal") ||
-      rincian.includes("tidak dapat dihitung")) {
-    alert("Periksa kembali rank dan jumlah bintang pesanan.");
-    return;
-  }
-
-  let detailLayanan = "";
-  if (layanan === "gendong") {
-    detailLayanan =
-      "Layanan: Joki Gendong\n" +
-      "Rank: " + document.getElementById("gendongRank").value + "\n" +
-      "Jumlah bintang: " + document.getElementById("gendongStars").value;
-  } else {
-    detailLayanan =
-      "Layanan: Joki Rank\n" +
-      "Rank awal: " + document.getElementById("rankAwal").value + "\n" +
-      "Bintang awal: " + document.getElementById("bintangAwal").value + "\n" +
-      "Rank tujuan: " + document.getElementById("rankTujuan").value + "\n" +
-      "Bintang tujuan: " + document.getElementById("bintangTujuan").value +
-      (document.getElementById("tambahanRank").value !== "0"
-        ? "\nTambahan: Mythic Grading" : "");
-  }
-
-  const pesan =
-    "Halo Admin LIXERA STORE, saya mau pesan.\n\n" +
-    detailLayanan + "\n\n" +
-    "Nickname: " + nickname + "\n" +
-    "User ID: " + userId + "\n" +
-    "Server ID: " + serverId + "\n" +
-    (waPembeli ? "WhatsApp: " + waPembeli + "\n" : "") +
-    "Metode pembayaran: " + metode + "\n" +
-    "Total estimasi: " + totalText + "\n\n" +
-    "Rincian harga:\n" + rincian + "\n\n" +
-    "Catatan: " + (catatan || "-") + "\n\n" +
-    "Mohon konfirmasi pesanan dan pembayaran saya. Terima kasih.";
-
-  window.open(
-    "https://wa.me/" + ADMIN_WA + "?text=" + encodeURIComponent(pesan),
-    "_blank"
-  );
-}
-
-hitung();
-ubahPembayaran();
+hitung();ubahBayar();
 </script>
 </body>
-</html>
+  </html>
+  
