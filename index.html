@@ -3,7 +3,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LIXERA STORE</title>
 <style>
 :root{--blue:#168cff;--cyan:#00d9ff;--bg:#050914;--panel:#0c1425;--line:#203653;--text:#f2f7ff;--muted:#91a5c2}
@@ -12,14 +12,13 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-seri
 header{text-align:center;padding:28px 15px;background:radial-gradient(ellipse at top,#123c76,#050914 75%);border-bottom:1px solid var(--line)}
 .logo{font-size:30px;font-weight:900;letter-spacing:2px}.logo span{color:var(--cyan)}
 header p{color:var(--muted);margin-bottom:0}
-main{max-width:850px;margin:auto;padding:16px}
+main{max-width:850px;margin:auto;padding:15px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:17px}
 h2{font-size:20px;margin-top:0}
+.tabs,.grid,.prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 button{border:0;border-radius:10px;padding:13px;font-weight:bold;cursor:pointer}
-.primary,.tab.active{background:linear-gradient(100deg,#0879ff,#00c9ff);color:white}
 .tab{background:#121f35;color:white;border:1px solid var(--line)}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid,.prices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tab.active,.primary{background:linear-gradient(100deg,#0879ff,#00c9ff);color:white}
 .price{background:#080f1d;border:1px solid var(--line);padding:12px;border-radius:10px;font-size:14px}
 .price b{display:block;color:var(--cyan);margin-top:6px}
 label{display:block;color:#b8cbe4;font-size:13px;margin:13px 0 6px}
@@ -28,7 +27,7 @@ input,select,textarea{width:100%;padding:13px;border-radius:10px;background:#070
 .hidden{display:none!important}
 .total{padding:16px;border:1px solid #0879ff;border-radius:13px;background:#071a32;margin-top:15px}
 .total strong{display:block;font-size:26px;color:var(--cyan);margin:7px 0}
-#rincian{white-space:pre-line}
+#rincian{white-space:pre-line;overflow-wrap:anywhere}
 .primary.full{width:100%;margin-top:15px}
 .qris{width:100%;max-width:310px;display:block;margin:15px auto;background:white;border-radius:12px}
 footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
@@ -46,8 +45,8 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 <section class="panel">
 <h2>01. Pilih Layanan</h2>
 <div class="tabs">
-<button id="tabG" class="tab active" onclick="pilih('gendong')">JOKI GENDONG</button>
-<button id="tabR" class="tab" onclick="pilih('rank')">JOKI RANK</button>
+<button id="tabG" class="tab active" onclick="pilihLayanan('gendong')">JOKI GENDONG</button>
+<button id="tabR" class="tab" onclick="pilihLayanan('rank')">JOKI RANK</button>
 </div>
 </section>
 
@@ -55,16 +54,20 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 <h2>02. Daftar Harga</h2>
 <div id="hargaG" class="prices"></div>
 <div id="hargaR" class="prices hidden"></div>
-<div id="grading" class="price hidden" style="margin-top:10px">MYTHIC GRADING<b>Rp235.000</b></div>
-<p class="note">Pastikan harga dan detail pesanan sesuai sebelum melakukan pembayaran.</p>
+<div id="grading" class="price hidden" style="margin-top:10px">
+MYTHIC GRADING <b>Rp235.000</b>
+</div>
+<p class="note">Harga dihitung sesuai rank dan progres bintang yang dipesan.</p>
 </section>
 
 <section class="panel">
 <h2>03. Kalkulator Harga</h2>
+
 <div id="formG">
 <label>Rank saat ini</label>
 <select id="rankG" onchange="hitung()">
-<option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
+<option>Epic</option><option>Legend</option><option>Mythic</option>
+<option>Honor</option><option>Glory</option><option>Immortal</option>
 </select>
 <label>Jumlah bintang yang dipesan</label>
 <input id="starG" type="number" min="1" value="1" oninput="hitung()">
@@ -72,62 +75,74 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 
 <div id="formR" class="hidden">
 <div class="grid">
-<div><label>Rank awal</label>
-<select id="awal" onchange="hitung()">
-<option>Grandmaster</option><option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
-</select></div>
-<div><label>Rank tujuan</label>
-<select id="tujuan" onchange="hitung()">
-<option>Epic</option><option>Legend</option><option>Mythic</option><option>Honor</option><option>Glory</option><option>Immortal</option>
-</select></div>
+<div>
+<label>Rank awal</label>
+<select id="awal" onchange="ubahInputBintang();hitung()"></select>
+</div>
+<div>
+<label>Rank tujuan</label>
+<select id="tujuan" onchange="ubahInputBintang();hitung()"></select>
+</div>
 </div>
 <div class="grid">
-<div><label>Bintang rank awal</label><input id="starAwal" type="number" min="0" value="0" oninput="hitung()"></div>
-<div><label>Bintang rank tujuan</label><input id="starTujuan" type="number" min="1" value="1" oninput="hitung()"></div>
+<div>
+<label>Bintang rank awal</label>
+<input id="starAwal" type="number" value="3" min="1" oninput="hitung()">
+</div>
+<div>
+<label>Bintang rank tujuan</label>
+<input id="starTujuan" type="number" value="1" min="1" oninput="hitung()">
+</div>
 </div>
 <label>Tambahan (opsional)</label>
 <select id="tambahan" onchange="hitung()">
 <option value="0">Tanpa tambahan</option>
 <option value="235000">Mythic Grading (+Rp235.000)</option>
 </select>
-<p class="note">Epic, Legend, Mythic, Honor: maksimal 25 bintang per tier. Glory: 50 bintang per tier. Immortal tidak memiliki batas tetap. Harga setiap tier ditambahkan sesuai bintang yang perlu ditempuh.</p>
+<p class="note">
+Grandmaster sampai Legend: divisi V, IV, III, II, I. Setiap divisi memiliki 5 bintang. Mythic menggunakan progres 0–24, Honor 25–49, Glory 50–99, dan Immortal mulai 100 tanpa batas tetap.
+</p>
 </div>
 
 <div class="total">
 <small>Estimasi total harga</small>
-<strong id="total">Rp0</strong>
+<strong id="totalHarga">Rp0</strong>
 <div id="rincian" class="note"></div>
 </div>
 </section>
 
 <section class="panel">
 <h2>04. Data Pemesan</h2>
-<label>Nickname game</label><input id="nickname" placeholder="Nickname">
+<label>Nickname game</label>
+<input id="nickname" placeholder="Masukkan nickname">
 <div class="grid">
-<div><label>User ID</label><input id="uid" placeholder="User ID" inputmode="numeric"></div>
-<div><label>Server ID</label><input id="sid" placeholder="Server ID" inputmode="numeric"></div>
+<div><label>User ID</label><input id="uid" inputmode="numeric" placeholder="User ID"></div>
+<div><label>Server ID</label><input id="sid" inputmode="numeric" placeholder="Server ID"></div>
 </div>
-<label>WhatsApp pemesan (opsional)</label><input id="wa" placeholder="08xxxxxxxxxx" inputmode="tel">
-<label>Catatan tambahan (opsional)</label><textarea id="catatan" rows="3" placeholder="Catatan pesanan"></textarea>
+<label>WhatsApp pemesan (opsional)</label>
+<input id="waPembeli" inputmode="tel" placeholder="08xxxxxxxxxx">
+<label>Catatan tambahan (opsional)</label>
+<textarea id="catatan" rows="3" placeholder="Catatan pesanan"></textarea>
 <p class="note">Jangan kirim password atau kode OTP akun.</p>
 </section>
 
 <section class="panel">
 <h2>05. Pembayaran</h2>
 <label>Metode pembayaran</label>
-<select id="metode" onchange="ubahBayar()">
+<select id="metode" onchange="ubahPembayaran()">
 <option>QRIS</option><option>DANA</option><option>GoPay</option>
 </select>
 <div id="qrisBox">
 <img class="qris" src="IMG-20261010-WA0017.jpg" alt="QRIS LIXERA STORE">
-<p class="note">Scan QRIS melalui aplikasi pembayaran yang mendukung QRIS.</p>
+<p class="note">Scan QRIS menggunakan aplikasi pembayaran yang mendukung QRIS.</p>
 </div>
 <div id="ewallet" class="hidden total">
-<small>Nomor pembayaran</small><strong style="font-size:23px">083165700636</strong>
+<small>Nomor pembayaran</small>
+<strong style="font-size:23px">083165700636</strong>
 <p>Nama penerima: <b>YAXXX</b></p>
-<button class="primary" onclick="salin()">SALIN NOMOR</button>
+<button class="primary" onclick="salinNomor()">SALIN NOMOR</button>
 </div>
-<p class="note">Pembayaran diperiksa admin secara manual. Pastikan nominal dan nama penerima benar.</p>
+<p class="note">Pembayaran diperiksa admin secara manual.</p>
 <button class="primary full" onclick="checkout()">KONFIRMASI PESANAN VIA WHATSAPP</button>
 </section>
 </main>
@@ -136,21 +151,95 @@ footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
 <script>
 const ADMIN_WA="573123253419";
 
-const hargaG={Epic:3000,Legend:5000,Mythic:7000,Honor:10000,Glory:15000,Immortal:20000};
-const hargaR={Grandmaster:3000,Epic:5000,Legend:7000,Mythic:18000,Honor:20000,Glory:28000,Immortal:30000};
-const batas={Grandmaster:25,Epic:25,Legend:25,Mythic:25,Honor:25,Glory:50,Immortal:null};
-const urutan=["Grandmaster","Epic","Legend","Mythic","Honor","Glory","Immortal"];
+const hargaG={
+ Epic:3000,Legend:5000,Mythic:7000,
+ Honor:10000,Glory:15000,Immortal:20000
+};
+
+const hargaRank={
+ Grandmaster:3000,Epic:5000,Legend:7000,
+ Mythic:18000,Honor:20000,Glory:28000,Immortal:30000
+};
+
+const divisi=["V","IV","III","II","I"];
+const rankAwalDasar=["Grandmaster","Epic","Legend"];
+
+/*
+ * Daftar tahap progres rank.
+ * Setiap divisi V sampai I memiliki 5 bintang.
+ */
+const tahap=[];
+rankAwalDasar.forEach(rank=>{
+ divisi.forEach(div=>{
+  tahap.push({
+   nama:rank+" "+div,
+   tier:rank,
+   jenis:"divisi",
+   harga:hargaRank[rank],
+   batas:5
+  });
+ });
+});
+
+tahap.push(
+ {nama:"Mythic",tier:"Mythic",jenis:"global",harga:18000,min:0,max:24},
+ {nama:"Honor",tier:"Honor",jenis:"global",harga:20000,min:25,max:49},
+ {nama:"Glory",tier:"Glory",jenis:"global",harga:28000,min:50,max:99},
+ {nama:"Immortal",tier:"Immortal",jenis:"global",harga:30000,min:100,max:Infinity}
+);
+
 let layanan="gendong";
 
-function rp(n){return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n)}
+function rupiah(n){
+ return new Intl.NumberFormat("id-ID",{
+  style:"currency",currency:"IDR",maximumFractionDigits:0
+ }).format(n);
+}
 
 function isiHarga(id,data){
  document.getElementById(id).innerHTML=Object.entries(data).map(([r,h])=>
- `<div class="price">${r}<b>${rp(h)}/bintang</b></div>`).join("");
+  `<div class="price">${r}<b>${rupiah(h)}/bintang</b></div>`
+ ).join("");
 }
-isiHarga("hargaG",hargaG);isiHarga("hargaR",hargaR);
+isiHarga("hargaG",hargaG);
+isiHarga("hargaR",hargaRank);
 
-function pilih(jenis){
+function isiPilihanRank(){
+ const a=document.getElementById("awal");
+ const t=document.getElementById("tujuan");
+ tahap.forEach((r,i)=>{
+  a.add(new Option(r.nama,String(i)));
+  t.add(new Option(r.nama,String(i)));
+ });
+ a.value="4";   // Grandmaster I
+ t.value="6";   // Epic IV
+}
+isiPilihanRank();
+
+function ubahInputBintang(){
+ const a=tahap[Number(document.getElementById("awal").value)];
+ const t=tahap[Number(document.getElementById("tujuan").value)];
+ const sa=document.getElementById("starAwal");
+ const st=document.getElementById("starTujuan");
+
+ if(a.jenis==="divisi"){
+  sa.min=1;sa.max=5;
+  if(Number(sa.value)<1||Number(sa.value)>5)sa.value=1;
+ }else{
+  sa.min=a.min;sa.removeAttribute("max");
+  if(Number(sa.value)<a.min||Number(sa.value)>a.max)sa.value=a.min;
+ }
+
+ if(t.jenis==="divisi"){
+  st.min=1;st.max=5;
+  if(Number(st.value)<1||Number(st.value)>5)st.value=1;
+ }else{
+  st.min=t.min;st.removeAttribute("max");
+  if(Number(st.value)<t.min||Number(st.value)>t.max)st.value=t.min;
+ }
+}
+
+function pilihLayanan(jenis){
  layanan=jenis;
  document.getElementById("tabG").classList.toggle("active",jenis==="gendong");
  document.getElementById("tabR").classList.toggle("active",jenis==="rank");
@@ -162,103 +251,155 @@ function pilih(jenis){
  hitung();
 }
 
+/*
+ * Setiap bintang yang dilewati ditambahkan satu per satu.
+ * Tidak ada perkalian total bintang dengan satu harga.
+ */
 function hitungRank(){
- const a=awal.value,t=tujuan.value;
- const sa=Number(starAwal.value),st=Number(starTujuan.value);
- const ia=urutan.indexOf(a),it=urutan.indexOf(t);
- const extra=Number(tambahan.value);
+ const ia=Number(document.getElementById("awal").value);
+ const it=Number(document.getElementById("tujuan").value);
+ const a=tahap[ia],t=tahap[it];
+ const sa=Number(document.getElementById("starAwal").value);
+ const st=Number(document.getElementById("starTujuan").value);
+ const extra=Number(document.getElementById("tambahan").value);
 
- if(ia<0||it<ia||sa<0||st<1||!Number.isInteger(sa)||!Number.isInteger(st))
- return {total:0,rincian:"Periksa rank dan jumlah bintang."};
+ if(ia>it)return {total:0,rincian:"Rank tujuan harus lebih tinggi dari rank awal."};
+ if(!Number.isInteger(sa)||!Number.isInteger(st))
+  return {total:0,rincian:"Masukkan bintang yang valid."};
 
- let total=0,detail=[];
- function tambah(rank,jumlah){
-   if(jumlah<=0)return;
-   const biaya=jumlah*hargaR[rank];
-   total+=biaya;
-   detail.push(`${rank}: ${jumlah} bintang = ${rp(biaya)}`);
+ if(a.jenis==="divisi"&&(sa<1||sa>5))
+  return {total:0,rincian:"Bintang rank awal harus 1–5."};
+ if(t.jenis==="divisi"&&(st<1||st>5))
+  return {total:0,rincian:"Bintang rank tujuan harus 1–5."};
+ if(a.jenis==="global"&&(sa<a.min||sa>a.max))
+  return {total:0,rincian:"Bintang rank awal tidak valid."};
+ if(t.jenis==="global"&&(st<t.min||st>t.max))
+  return {total:0,rincian:"Bintang rank tujuan tidak valid."};
+
+ if(ia===it&&st<=sa)
+  return {total:0,rincian:"Bintang tujuan harus lebih tinggi dari bintang awal."};
+
+ let total=0;
+ const rincian=[];
+ function tambah(rank,harga){
+  total+=harga;
+  rincian.push(rank+": +"+rupiah(harga));
  }
 
+ // Rank awal dan tujuan sama.
  if(ia===it){
-   if(st<=sa)return {total:0,rincian:"Bintang tujuan harus lebih tinggi dari bintang awal."};
-   tambah(a,st-sa);
+  for(let b=sa+1;b<=st;b++){
+   tambah(a.nama,hargaRank[a.tier]);
+  }
  }else{
-   if(batas[a]===null)return {total:0,rincian:"Rank awal Immortal tidak bisa dihitung otomatis."};
-   if(sa>=batas[a])return {total:0,rincian:"Bintang awal harus lebih kecil dari batas tier."};
-
-   // Tambahkan hanya sisa bintang pada tier awal.
-   tambah(a,batas[a]-sa);
-
-   // Tambahkan biaya setiap tier yang dilewati.
-   for(let i=ia+1;i<it;i++){
-     const r=urutan[i];
-     if(batas[r]===null)return {total:0,rincian:"Immortal tidak bisa menjadi tier perantara karena tidak memiliki batas tetap."};
-     tambah(r,batas[r]);
+  // Sisa bintang pada divisi awal.
+  if(a.jenis==="divisi"){
+   for(let b=sa+1;b<=5;b++){
+    tambah(a.nama,hargaRank[a.tier]);
    }
+  }else{
+   // Global star rank awal: maju satu bintang sampai akhir tahapnya.
+   const akhir=a.max;
+   for(let b=sa+1;b<=akhir;b++){
+    tambah(a.tier,hargaRank[a.tier]);
+   }
+  }
 
-   // Tujuan tier biasa dihitung sesuai bintang tujuan yang dimasukkan.
-   // Immortal juga dihitung berdasarkan bintang tujuan yang dimasukkan.
-   tambah(t,st);
+  // Tahap yang dilewati sepenuhnya.
+  for(let i=ia+1;i<it;i++){
+   const r=tahap[i];
+   if(r.jenis==="divisi"){
+    for(let b=1;b<=5;b++)tambah(r.nama,hargaRank[r.tier]);
+   }else{
+    for(let b=r.min;b<=r.max;b++)tambah(r.tier,hargaRank[r.tier]);
+   }
+  }
+
+  // Bintang tujuan: dihitung sesuai posisi bintang yang dimasukkan.
+  if(t.jenis==="divisi"){
+   for(let b=1;b<=st;b++)tambah(t.nama,hargaRank[t.tier]);
+  }else{
+   for(let b=t.min;b<=st;b++)tambah(t.tier,hargaRank[t.tier]);
+  }
  }
 
- if(extra>0){total+=extra;detail.push("Mythic Grading: "+rp(extra));}
- return {total,rincian:detail.join("\n")};
+ if(extra>0){
+  total+=extra;
+  rincian.push("Mythic Grading: +"+rupiah(extra));
+ }
+
+ return {total,rincian:rincian.length?rincian.join("\n"):"Tidak ada bintang yang perlu ditempuh."};
 }
 
 function hitung(){
  let total=0,rincian="";
  if(layanan==="gendong"){
-   const r=rankG.value,n=Number(starG.value);
-   if(!Number.isInteger(n)||n<1){rincian="Masukkan minimal 1 bintang.";}
-   else{total=n*hargaG[r];rincian=`${r}: ${n} bintang = ${rp(total)}`;}
+  const r=document.getElementById("rankG").value;
+  const n=Number(document.getElementById("starG").value);
+  if(!Number.isInteger(n)||n<1){
+   rincian="Masukkan jumlah bintang minimal 1.";
+  }else{
+   for(let i=0;i<n;i++)total+=hargaG[r];
+   rincian=Array.from({length:Math.min(n,100)},()=>r+": +"+rupiah(hargaG[r])).join("\n");
+   if(n>100)rincian+="\n... dan "+(n-100)+" bintang berikutnya.";
+  }
  }else{
-   const h=hitungRank();total=h.total;rincian=h.rincian;
+  const hasil=hitungRank();
+  total=hasil.total;rincian=hasil.rincian;
  }
- document.getElementById("total").textContent=rp(total);
+ document.getElementById("totalHarga").textContent=rupiah(total);
  document.getElementById("rincian").textContent=rincian;
 }
 
-function ubahBayar(){
- const m=metode.value;
+function ubahPembayaran(){
+ const m=document.getElementById("metode").value;
  document.getElementById("qrisBox").classList.toggle("hidden",m!=="QRIS");
  document.getElementById("ewallet").classList.toggle("hidden",m==="QRIS");
 }
-function salin(){
+
+function salinNomor(){
  if(navigator.clipboard&&navigator.clipboard.writeText){
   navigator.clipboard.writeText("083165700636").then(()=>alert("Nomor disalin."));
  }else alert("Nomor pembayaran: 083165700636");
 }
+
 function checkout(){
  hitung();
- const nama=nickname.value.trim(),u=uid.value.trim(),s=sid.value.trim();
- const waPembeli=wa.value.trim(),cat=catatan.value.trim();
- const h=layanan==="rank"?hitungRank():null;
- if(!nama||!u||!s){alert("Isi nickname, User ID, dan Server ID.");return;}
- if(Number(document.getElementById("total").textContent.replace(/\D/g,""))===0||
-    (h&&h.rincian.startsWith("Periksa"))||
-    (h&&h.rincian.startsWith("Bintang"))||
-    (h&&h.rincian.startsWith("Rank awal"))||
-    (h&&h.rincian.startsWith("Immortal tidak"))){
-  alert("Periksa kembali rank dan bintang pesanan.");return;
+ const nama=document.getElementById("nickname").value.trim();
+ const uid=document.getElementById("uid").value.trim();
+ const sid=document.getElementById("sid").value.trim();
+ if(!nama||!uid||!sid){
+  alert("Isi nickname, User ID, dan Server ID terlebih dahulu.");return;
  }
 
- let layananText;
+ let detail="";
  if(layanan==="gendong"){
-  layananText=`Joki Gendong\nRank: ${rankG.value}\nJumlah bintang: ${starG.value}`;
+  detail="Joki Gendong\nRank: "+document.getElementById("rankG").value+
+  "\nJumlah bintang: "+document.getElementById("starG").value;
  }else{
-  layananText=`Joki Rank\nRank awal: ${awal.value} (${starAwal.value} bintang)\nRank tujuan: ${tujuan.value} (${starTujuan.value} bintang)\nTambahan: ${tambahan.value==="0"?"Tidak ada":"Mythic Grading"}`;
+  detail="Joki Rank\nRank awal: "+tahap[Number(document.getElementById("awal").value)].nama+
+  " bintang "+document.getElementById("starAwal").value+
+  "\nRank tujuan: "+tahap[Number(document.getElementById("tujuan").value)].nama+
+  " bintang "+document.getElementById("starTujuan").value+
+  "\nTambahan: "+(document.getElementById("tambahan").value==="0"?"Tidak ada":"Mythic Grading");
  }
+
  const pesan=
- `Halo Admin LIXERA STORE, saya mau pesan.\n\n${layananText}\n\n`+
- `Nickname: ${nama}\nUser ID: ${u}\nServer ID: ${s}\n`+
- (waPembeli?`WhatsApp: ${waPembeli}\n`:"")+
- `Pembayaran: ${metode.value}\nTotal estimasi: ${total.textContent}\n`+
- `Rincian:\n${document.getElementById("rincian").textContent}\n`+
- `Catatan: ${cat||"-"}\n\nMohon konfirmasi pesanan saya.`;
+ "Halo Admin LIXERA STORE, saya mau pesan.\n\n"+
+ detail+"\nNickname: "+nama+"\nUser ID: "+uid+"\nServer ID: "+sid+
+ "\nWhatsApp pemesan: "+(document.getElementById("waPembeli").value.trim()||"-")+
+ "\nMetode pembayaran: "+document.getElementById("metode").value+
+ "\nTotal estimasi: "+document.getElementById("totalHarga").textContent+
+ "\n\nRincian harga:\n"+document.getElementById("rincian").textContent+
+ "\n\nCatatan: "+(document.getElementById("catatan").value.trim()||"-")+
+ "\n\nMohon konfirmasi pesanan saya.";
+
  window.open("https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent(pesan),"_blank");
 }
-hitung();ubahBayar();
+
+ubahInputBintang();
+hitung();
+ubahPembayaran();
 </script>
 </body>
-  </html>
-  
+</html>
