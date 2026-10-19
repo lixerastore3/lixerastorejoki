@@ -3,13 +3,13 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050918">
-<title>Joki MLBB - LIXERA STORE</title>
+<title>Joki MLBB | LIXERA STORE</title>
 <style>
-:root{--blue:#087cff;--cyan:#00e5ff;--bg:#050918;--card:#0b1630;--line:#194a85;--white:#f3f8ff}
+:root{--blue:#087cff;--cyan:#00e5ff;--bg:#050918;--line:#194a85}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#103577,#050918 60%,#02040a);font-family:Arial,sans-serif;color:var(--white)}
+body{margin:0;background:radial-gradient(ellipse at top,#103577,#050918 60%,#02040a);font-family:Arial,sans-serif;color:#f3f8ff}
 header{text-align:center;padding:28px 14px 24px;border-bottom:1px solid #164783}
 .brand{font-size:12px;letter-spacing:7px;color:#75d9ff}
 h1{font-size:clamp(27px,7vw,42px);margin:12px 0;text-shadow:0 0 20px #168cff}
@@ -19,23 +19,24 @@ h2{font-size:18px;margin:22px 0 12px}
 .card{background:linear-gradient(145deg,#0d1b39,#070d1e);border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0;box-shadow:0 8px 25px #0004}
 .tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tab{padding:14px 6px;background:#0b1832;color:#bed8ff;border:1px solid #1a4b87;border-radius:11px;font-weight:bold}
-.tab.active{background:linear-gradient(100deg,#0758d9,#00aaff);color:white;border-color:#5de9ff;box-shadow:0 0 15px #078cff55}
+.tab.active{background:linear-gradient(100deg,#0758d9,#00aaff);color:white;border-color:#5de9ff}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .price{border:1px solid #194780;background:#08142c;padding:12px 10px;border-radius:10px;font-size:13px}
 .price b{display:block;margin-bottom:7px}
 .price strong{color:#62e3ff;font-size:16px}
 .note{font-size:12px;color:#9db6dc;line-height:1.65}
 label{display:block;font-size:13px;color:#c4d9fa;margin:14px 0 7px}
-input,select,textarea{width:100%;padding:13px;border:1px solid #254879;border-radius:9px;background:#050c1c;color:white;font-size:14px}
+input:not([type=checkbox]),select,textarea{width:100%;padding:13px;border:1px solid #254879;border-radius:9px;background:#050c1c;color:white;font-size:14px}
 button{cursor:pointer}
 .btn{width:100%;padding:14px;border:0;border-radius:10px;background:linear-gradient(90deg,#075de5,#00bfff);color:white;font-weight:bold;font-size:15px;margin-top:14px}
 .total{font-size:25px;font-weight:bold;color:#63e5ff;margin-top:7px}
 .pay{border:1px dashed #278cff;border-radius:11px;padding:13px;background:#07152b;line-height:1.8;font-size:14px}
-.qris{display:block;max-width:250px;width:100%;margin:12px auto;background:white;border-radius:8px}
+.qris{display:block;max-width:270px;width:100%;margin:14px auto;background:white;border-radius:8px}
 .hidden{display:none!important}
 .steps{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
 .steps span{font-size:11px;color:#aac5ef;border:1px solid #1c477d;border-radius:20px;padding:7px 9px}
 footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
+hr{border:0;border-top:1px solid #19345b;margin:14px 0}
 @media(min-width:550px){.grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
@@ -61,7 +62,7 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
   <section class="card">
     <div id="pricesG">
       <h3>⚔️ Harga Joki Gendong</h3>
-      <p class="note">Harga per bintang sesuai daftar harga LIXERA STORE.</p>
+      <p class="note">Harga per bintang.</p>
       <div class="grid">
         <div class="price"><b>EPIC</b><strong>Rp3.000</strong> / bintang</div>
         <div class="price"><b>LEGEND</b><strong>Rp5.000</strong> / bintang</div>
@@ -74,7 +75,7 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
 
     <div id="pricesR" class="hidden">
       <h3>🏆 Harga Joki Rank</h3>
-      <p class="note">Harga per bintang. Mythic Grading adalah paket khusus.</p>
+      <p class="note">Harga per bintang, kecuali paket Mythic Grading.</p>
       <div class="grid">
         <div class="price"><b>GRANDMASTER</b><strong>Rp3.000</strong> / bintang</div>
         <div class="price"><b>EPIC</b><strong>Rp5.000</strong> / bintang</div>
@@ -84,9 +85,7 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
         <div class="price"><b>GLORY</b><strong>Rp28.000</strong> / bintang</div>
         <div class="price"><b>IMMORTAL</b><strong>Rp30.000</strong> / bintang</div>
       </div>
-      <div class="price" style="margin-top:9px">
-        <b>MYTHIC GRADING</b><strong>Rp235.000</strong> / paket
-      </div>
+      <div class="price" style="margin-top:9px"><b>MYTHIC GRADING</b><strong>Rp235.000</strong> / paket</div>
     </div>
   </section>
 
@@ -99,14 +98,7 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
     </select>
 
     <label>Rank saat ini</label>
-    <select id="rank" onchange="calculate()">
-      <option value="Epic">Epic</option>
-      <option value="Legend">Legend</option>
-      <option value="Mythic">Mythic</option>
-      <option value="Honor">Honor</option>
-      <option value="Glory">Glory</option>
-      <option value="Immortal">Immortal</option>
-    </select>
+    <select id="rank" onchange="calculate()"></select>
 
     <div id="targetWrap">
       <label>Rank tujuan (opsional)</label>
@@ -123,12 +115,12 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
     <div id="gradingWrap" class="hidden">
       <label>Paket khusus</label>
       <select id="grading" onchange="calculate()">
-        <option value="normal">Hitung per bintang</option>
+        <option value="normal">Harga per bintang</option>
         <option value="grading">Mythic Grading — Rp235.000</option>
       </select>
     </div>
 
-    <label>Estimasi total harga</label>
+    <label>Total harga</label>
     <div class="total" id="total">Rp3.000</div>
     <p class="note" id="priceNote">Total dihitung berdasarkan rank dan jumlah bintang.</p>
   </section>
@@ -136,21 +128,18 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
   <h2>2. Pembayaran</h2>
   <section class="card">
     <div class="pay">
-      <b>Metode pembayaran</b><br>
-      DANA • GoPay • QRIS<br>
+      <b>Metode pembayaran</b><br>QRIS • DANA • GoPay
       <hr>
       <b>DANA / GoPay</b><br>
       Nomor: <b>083165700636</b><br>
-      Nama: <b>YAXXX</b><br>
-      <p class="note">QRIS: letakkan file QRIS bernama <b>qris-lixera.jpg</b> di folder yang sama dengan index.html.</p>
-      <img class="qris" src="qris-lixera.jpg" alt="QRIS LIXERA STORE" onerror="this.style.display='none'">
-      <p class="note">Pastikan nama penerima dan nominal benar sebelum membayar. Simpan bukti pembayaran untuk dikirim ke admin.</p>
+      Nama: <b>YAXXX</b>
+      <p class="note">Scan QRIS di bawah untuk membayar. Pastikan nama penerima dan nominal benar.</p>
+      <img class="qris" src="IMG-20261010-WA0017.jpg" alt="QRIS LIXERA STORE">
+      <p class="note">Simpan bukti pembayaran untuk dikirim ke admin melalui WhatsApp.</p>
     </div>
     <label>Metode yang digunakan</label>
     <select id="payment">
-      <option>QRIS</option>
-      <option>DANA</option>
-      <option>GoPay</option>
+      <option>QRIS</option><option>DANA</option><option>GoPay</option>
       <option>Belum membayar - tanya admin</option>
     </select>
   </section>
@@ -171,16 +160,16 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
       <input id="customerWa" inputmode="tel" placeholder="Nomor yang bisa dihubungi">
 
       <label>Catatan pesanan (opsional)</label>
-      <textarea id="notes" rows="3" maxlength="500" placeholder="Contoh: jam pengerjaan atau catatan lainnya"></textarea>
+      <textarea id="notes" rows="3" maxlength="500" placeholder="Catatan tambahan"></textarea>
 
-      <label>
-        <input type="checkbox" id="confirm" required style="width:auto;margin-right:7px">
+      <label style="display:flex;align-items:center;gap:8px">
+        <input type="checkbox" id="confirm" required style="width:auto">
         Data pesanan sudah benar.
       </label>
-      <button class="btn" type="submit">Lanjutkan ke WhatsApp Admin ↗</button>
+      <button class="btn" type="submit">Lanjut ke WhatsApp Admin ↗</button>
     </form>
   </section>
-  <p class="note">Pesanan belum otomatis terkonfirmasi setelah pembayaran. Admin akan memeriksa detail dan bukti pembayaran melalui WhatsApp.</p>
+  <p class="note">Pesanan belum otomatis terkonfirmasi setelah pembayaran. Admin akan memeriksa detail dan bukti pembayaran melalui WhatsApp. Jangan berikan password akun kepada siapa pun.</p>
 </main>
 
 <footer>LIXERA STORE © 2026 • MOBILE LEGENDS</footer>
@@ -188,23 +177,15 @@ footer{text-align:center;color:#7892bc;font-size:11px;padding:22px 8px}
 <script>
 const ADMIN_WA = "573123253419";
 
-/* EDIT HARGA DI BAGIAN INI */
+/* HARGA BISA DIEDIT DI BAGIAN INI */
 const prices = {
   gendong: {
-    Epic: 3000,
-    Legend: 5000,
-    Mythic: 7000,
-    Honor: 10000,
-    Glory: 15000,
-    Immortal: 20000
+    Epic: 3000, Legend: 5000, Mythic: 7000,
+    Honor: 10000, Glory: 15000, Immortal: 20000
   },
   rank: {
-    Grandmaster: 3000,
-    Epic: 5000,
-    Legend: 7000,
-    Mythic: 18000,
-    Honor: 20000,
-    Glory: 28000,
+    Grandmaster: 3000, Epic: 5000, Legend: 7000,
+    Mythic: 18000, Honor: 20000, Glory: 28000,
     Immortal: 30000
   },
   grading: 235000
@@ -225,50 +206,51 @@ function setMode(mode) {
   document.getElementById("pricesR").classList.toggle("hidden",mode!=="rank");
   document.getElementById("gradingWrap").classList.toggle("hidden",mode!=="rank");
   document.getElementById("targetWrap").classList.toggle("hidden",mode==="gendong");
-  const rank = document.getElementById("rank");
-  const old = rank.value;
-  rank.innerHTML = "";
-  const ranks = mode==="rank"
+
+  const rank=document.getElementById("rank");
+  const old=rank.value;
+  const ranks=mode==="rank"
     ? ["Grandmaster","Epic","Legend","Mythic","Honor","Glory","Immortal"]
     : ["Epic","Legend","Mythic","Honor","Glory","Immortal"];
+
+  rank.innerHTML="";
   ranks.forEach(r=>{
     const opt=document.createElement("option");
-    opt.value=r; opt.textContent=r;
-    rank.appendChild(opt);
+    opt.value=r;opt.textContent=r;rank.appendChild(opt);
   });
-  if(ranks.includes(old)) rank.value=old;
+  if(ranks.includes(old))rank.value=old;
   calculate();
 }
 
 function calculate() {
-  const rank = document.getElementById("rank").value;
-  const stars = Math.max(1,Math.min(100,Number(document.getElementById("stars").value)||1));
-  const grading = document.getElementById("grading").value;
-  const total = currentMode==="rank" && grading==="grading"
-    ? prices.grading
-    : (prices[currentMode][rank] || 0) * stars;
+  const rank=document.getElementById("rank").value;
+  const stars=Math.max(1,Math.min(100,Number(document.getElementById("stars").value)||1));
+  const grading=document.getElementById("grading").value;
+  const isGrading=currentMode==="rank" && grading==="grading";
+  const total=isGrading?prices.grading:(prices[currentMode][rank]||0)*stars;
+
   document.getElementById("total").textContent=rupiah(total);
-  document.getElementById("priceNote").textContent =
-    currentMode==="rank" && grading==="grading"
-      ? "Paket khusus Mythic Grading."
-      : rupiah(prices[currentMode][rank]||0)+" × "+stars+" bintang.";
+  document.getElementById("priceNote").textContent=isGrading
+    ?"Paket khusus Mythic Grading."
+    :rupiah(prices[currentMode][rank]||0)+" × "+stars+" bintang.";
 }
 
 document.getElementById("orderForm").addEventListener("submit",function(e){
   e.preventDefault();
+
   const rank=document.getElementById("rank").value;
   const stars=Math.max(1,Math.min(100,Number(document.getElementById("stars").value)||1));
-  const grading=currentMode==="rank" && document.getElementById("grading").value==="grading";
-  const total=grading ? prices.grading : (prices[currentMode][rank]||0)*stars;
+  const grading=currentMode==="rank"&&document.getElementById("grading").value==="grading";
+  const total=grading?prices.grading:(prices[currentMode][rank]||0)*stars;
   const target=document.getElementById("target").value;
-  const method=document.getElementById("payment").value;
+  const payment=document.getElementById("payment").value;
   const nickname=document.getElementById("nickname").value.trim();
   const userId=document.getElementById("userId").value.trim();
   const serverId=document.getElementById("serverId").value.trim();
   const customerWa=document.getElementById("customerWa").value.trim();
   const notes=document.getElementById("notes").value.trim();
 
-  const lines=[
+  const message=[
     "🔥 *ORDER JOKI MLBB - LIXERA STORE*",
     "",
     "*Layanan:* "+(currentMode==="gendong"?"Joki Gendong":"Joki Rank"),
@@ -276,7 +258,7 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
     "*Rank tujuan:* "+(target||"-"),
     "*Jumlah bintang:* "+(grading?"Paket khusus":stars),
     "*Total harga:* "+rupiah(total),
-    "*Pembayaran:* "+method,
+    "*Pembayaran:* "+payment,
     "",
     "*DATA AKUN*",
     "*Nickname:* "+nickname,
@@ -285,10 +267,11 @@ document.getElementById("orderForm").addEventListener("submit",function(e){
     "*WhatsApp pembeli:* "+(customerWa||"-"),
     "*Catatan:* "+(notes||"-"),
     "",
-    "Saya ingin konfirmasi pesanan. Mohon info langkah selanjutnya."
-  ];
-  const url="https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent(lines.join("\n"));
-  window.open(url,"_blank");
+    "Mohon konfirmasi pesanan dan pembayaran saya."
+  ].join("\n");
+
+  const url="https://wa.me/"+ADMIN_WA+"?text="+encodeURIComponent(message);
+  window.location.href=url;
 });
 
 setMode("gendong");
